@@ -1,5 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
 
+const env = {
+  API_URL: 'http://localhost',
+}
+
 export default {
   /*
   ** Nuxt rendering mode
@@ -37,6 +41,8 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    '~/plugins/axios',
+    '~/plugins/mixins',
   ],
   /*
   ** Auto import components
@@ -58,12 +64,17 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     '@nuxt/content',
+
+    // Doc: https://www.npmjs.com/package/cookie-universal-nuxt
+    'cookie-universal-nuxt',
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    baseURL: env.API_URL,
+  },
   /*
   ** Content module configuration
   ** See https://content.nuxtjs.org/configuration
@@ -76,7 +87,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -95,5 +106,12 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+
+  router: {
+    middleware: [
+      'auth',
+      'redirect',
+    ]
   }
 }
