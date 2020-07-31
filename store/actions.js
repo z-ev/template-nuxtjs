@@ -13,7 +13,7 @@ export default {
         default: breakpoint = '';
       };
 
-      commit('setWindowSize', { windowSize: windowSize })
+      commit('setWindowSize', { windowSize: windowSize });
       commit('setBreakpoint', { breakpoint: breakpoint });
     }
   },
@@ -33,8 +33,8 @@ export default {
   async login({ commit, state }, payload) {
     payload.device_name = state.userAgent;
     await this.$axios.$post('/auth/token', payload).then((response) => {
-      commit('setToken', { token: response.token });
-      commit('setUser', { user: response.user });
+      commit('setToken', { token: response.date.token });
+      commit('setUser', { user: response.date.user });
     });
   },
 
