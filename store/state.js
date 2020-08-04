@@ -11,4 +11,6 @@ export default () => ({
   },
   token: undefined,
   userAgent: '',
+
+  usersIndex: {},
 })

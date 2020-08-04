@@ -10,5 +10,9 @@ export default {
   },
   user: function (state) {
     return state.user;
-  }
+  },
+
+  usersIndex: function (state) {
+    return state.usersIndex
+  },
 }

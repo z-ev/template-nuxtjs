@@ -47,5 +47,13 @@ export default {
         email: 'guest@mail.ru',
       },
     });
+  },
+
+  async usersIndex({ state, commit }) {
+    if (Object.keys(state.usersIndex).length === 0) {
+      await this.$axios.$get('/dashboard/users').then((response) => {
+        commit('setUsersIndex', { usersIndex: response });
+      });
+    }
   }
 }
