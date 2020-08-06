@@ -17,4 +17,20 @@ $ npm run start
 $ npm run generate
 ```
 
+## Docker
+### Conig
+```bash
+echo -e "\n$(cat .env.docker)" >> .env
+```
+
+### build
+```bash
+docker-compose up --build
+```
+
+### Commands start, stop, restart
+```bash
+docker-compose <command> && docker-compose logs -f
+
+
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
