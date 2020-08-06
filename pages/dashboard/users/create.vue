@@ -7,7 +7,7 @@
 <script>
   export default {
     layout: 'dashboard',
-    name: "index"
+    name: "create"
   }
 </script>
 
