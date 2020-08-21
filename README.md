@@ -1,7 +1,27 @@
-# template-nuxtjs
+# Template Nuxtjs (Frontend)
+## Install
+### Docker
+```bash
+echo -e "$(cat .env.docker)" >> .env \
+&& docker-compose up --build
+```
+### Add string host's file
+```bash
+...
+127.0.0.1 template.loc www.template.loc
+```
+## Use
+### Docker commands start, stop, restart
+```bash
+docker-compose <command> && docker-compose logs -f
+```
+### Login
+```bash
+login: superadmin@gmail.com
+pass: superadmin
+```
 
-## Build Setup
-
+### Build Setup
 ```bash
 # install dependencies
 $ npm install
@@ -17,20 +37,3 @@ $ npm run start
 $ npm run generate
 ```
 
-## Docker
-### Conig
-```bash
-echo -e "\n$(cat .env.docker)" >> .env
-```
-
-### build
-```bash
-docker-compose up --build
-```
-
-### Commands start, stop, restart
-```bash
-docker-compose <command> && docker-compose logs -f
-
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

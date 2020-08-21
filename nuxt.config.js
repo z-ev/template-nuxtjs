@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 const env = {
-  API_URL: 'http://api.template.loc',
+  API_URL: 'http://api.template.loc:8080',
 }
 
 export default {
