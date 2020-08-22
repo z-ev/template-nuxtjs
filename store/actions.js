@@ -11,7 +11,7 @@ export default {
         case windowSize.x > 1264 && windowSize.x < 1904: breakpoint = 'lg'; break;
         case windowSize.x > 1904: breakpoint = 'xl'; break;
         default: breakpoint = '';
-      };
+      }
 
       commit('setWindowSize', { windowSize: windowSize });
       commit('setBreakpoint', { breakpoint: breakpoint });
@@ -49,9 +49,14 @@ export default {
     });
   },
 
-  async usersIndex({ state, commit }) {
-    if (Object.keys(state.usersIndex).length === 0) {
-      await this.$axios.$get('/dashboard/users').then((response) => {
+  indexCheck() {
+
+  },
+
+  async usersIndex({ state, commit }, payload) {
+    let page = payload.config.params.page;
+    if (typeof state.usersIndex.find(collect => collect.meta['current_page'] === page) !== 'object') {
+      await this.$axios.$get('/dashboard/users', payload.config).then((response) => {
         commit('setUsersIndex', { usersIndex: response });
       });
     }

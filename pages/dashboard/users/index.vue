@@ -6,8 +6,8 @@
           <v-flex md8>
             Таблица
             <v-chip
-              v-if="usersIndex.data"
-              v-text="'Кол:' + usersIndex.data.length"
+              v-if="!isEmpty(collect)"
+              v-text="'Кол:' + collect.meta.total"
             ></v-chip>
           </v-flex>
           <v-flex md4>
@@ -23,13 +23,13 @@
       </v-card-title>
       <v-card-text>
         <v-data-table
-          :show-select="!isEmpty(usersIndex)"
+          :show-select="!isEmpty(collect)"
           v-model="selected"
           :single-select="singleSelect"
-          :headers="usersIndex.headers"
-          :items="usersIndex.data"
+          :headers="collect.headers"
+          :items="collect.data"
           :search="search"
-          :loading="isEmpty(usersIndex)"
+          :loading="isEmpty(collect)"
           :loading-text="'Пожалуйста подождите...'"
           :no-data-text="'Элементов не найдено...'"
           hide-default-footer
@@ -69,6 +69,19 @@
               <span>Удалить</span>
             </v-tooltip>
           </template>
+          <template
+            v-if="!isEmpty(collect)"
+            v-slot:footer
+          >
+            <div class="text-center pt-2">
+              <v-pagination
+                v-model="page"
+                :length="collect.meta['last_page']"
+                @input="pagination()"
+                circle
+              ></v-pagination>
+            </div>
+          </template>
         </v-data-table>
       </v-card-text>
     </v-card>
@@ -78,7 +91,7 @@
 <script>
   export default {
     layout: 'dashboard',
-    name: "index",
+    name: 'usersIndex',
     data() {
       return {
         // Search
@@ -87,18 +100,31 @@
         // Table
         selected: [],
         singleSelect: false,
+
+        // Paginate
+        page: 1,
       };
     },
     created() {
-      this.$store.dispatch('usersIndex');
+      if (this.$route.query.page) {
+        this.page = Number(this.$route.query.page);
+      }
+      this.request();
     },
     computed: {
-      usersIndex() {
-        return this.$store.getters.usersIndex;
+      collect() {
+        return this.$store.getters[this.$options.name]({ page: this.page });
       }
     },
     methods: {
-      //
+      request: function () {
+        let payload = { config: { params: { page: this.page } } }
+        this.$store.dispatch(this.$options.name, payload);
+      },
+      pagination: function() {
+        this.$router.replace({ name: this.$route.name, query: { page: String(this.page) } });
+        this.request();
+      },
     }
   }
 </script>

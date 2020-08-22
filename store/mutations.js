@@ -20,6 +20,6 @@ export default {
   },
 
   setUsersIndex(state, payload) {
-    state.usersIndex = payload.usersIndex;
+    state.usersIndex.push(payload.usersIndex);
   },
 }

@@ -12,7 +12,8 @@ export default {
     return state.user;
   },
 
-  usersIndex: function (state) {
-    return state.usersIndex
+  usersIndex: state => payload => {
+    let collect = state.usersIndex.find(collect => collect.meta['current_page'] === payload.page);
+    return typeof collect === 'object' ? collect : {};
   },
 }
